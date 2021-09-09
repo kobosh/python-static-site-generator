@@ -1,9 +1,10 @@
 from pathlib import Path
-import os
+
 class Site:
-    def __init__(self,source,dest):
+    def __init__(self,source,dest,parsers=None):
         self.source=Path(source)
         self.dest=Path(dest)
+        self.parsers=parsers or []
     def create_dir(self,path):
         directory=self.dest/path.relative_to(self.source)
         directory.mkdir(parents=True,exist_ok=True)
@@ -12,3 +13,14 @@ class Site:
         for path in self.source.rglob("*"):
             if path.is_dir():
                 self.create_dir(path)
+    def load_parser(extension):
+        for parser in self.parsers:
+            if parser.valid_parser():
+                return parser
+        return None
+    def run_parser(path):
+        parser=self.load_parser(path.suffix)
+        if parser not None:
+            parser.parse(path,self.source,self.dest)
+        else:
+            raise NotImplementedError    
