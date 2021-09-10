@@ -17,7 +17,7 @@ class Site:
                 self.run_parser(path)
     def load_parser(self,extension):
         for parser in self.parsers:
-            if parser.valid_parser():
+            if parser.valid_extension():
                 return parser
         return None
     def run_parser(self,path):
@@ -25,5 +25,4 @@ class Site:
         if parser is not None:
             parser.parse(path,self.source,self.dest)
         else:
-            raise NotImplementedError
-ss=Site()
+            raise NotImplementedError("parser is none")
