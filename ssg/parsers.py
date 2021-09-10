@@ -23,8 +23,7 @@ class Parser:
             with open(full_path,'w') as file:
                 file.write(content)
     def copy(self,path,source,dest):
-        relpath=dest/path.relative_to(source)
-        shutil.copy2(path,relpath)
+        shutil.copy2(path,dest/path.relative_to(source))
 
 
 
