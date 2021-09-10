@@ -1,20 +1,20 @@
 from typing import List
 from pathlib import Path
-from shutil import copy2
+import shutil
 
 class Parser:
 
     extensions:List[str]=[]
     def valid_extension(self,extension):
-        if extension in self.extensions:
-            return True
-        return False
+        return  extension in self.extensions
+
+
     def parse(self,path:Path,source:Path,dest:Path):
          raise NotImplementedError
     def read(self, path):
         with  open(path,'r') as file:
-            bts=file.read()
-        return bts
+            return file.read()
+
     def write(self,path,dest,content,ext=".html"):
         if self.valid_extension(ext):
             print("valid extension",ext)
@@ -24,8 +24,7 @@ class Parser:
                 file.write(content)
     def copy(self,path,source,dest):
         relpath=dest/path.relative_to(source)
-        copy2(path,relpath)
-
+        shutil.copy2(path,relpath)
 
 
 
@@ -33,5 +32,5 @@ class Parser:
 class ResourceParser(Parser):
     extensions = [".jpg", ".png", ".gif", ".css", ".html"]
 
-    def parse(self, path: Path, source: Path, dest: Path):
+    def parse(self, path, source, dest):
         super.copy(path, source, dest)
