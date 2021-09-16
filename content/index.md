@@ -1,5 +1,5 @@
 ---
-type: page
+type: page 
 title: Home
 slug: home
 ---
