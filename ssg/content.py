@@ -6,11 +6,11 @@ from collections.abc import Mapping
 
 
 class Content(Mapping):
-    __delimiter = "^(?:-|\+){3}\s*$"
+    __delimiter ="^(?:-|\+){3}\s*$"
     __regex = re.compile(__delimiter, re.MULTILINE)
     @classmethod
-    def load(self, cls, string):
-        _, fm, content = self.__regex.split(string, 2)
+    def load( cls, string):
+        _, fm, content = cls.__regex.split(string, 2)
         metadata=load(fm, loader=FullLoader)
 
         return cls(metadata, content)
@@ -25,7 +25,7 @@ class Content(Mapping):
 
     @property
     def type(self):
-        return self.data["type"] if "type" in self.data else None
+        return self.data["type"] if  "type" in self.data else None
 
     @type.setter
     def type(self,value):
