@@ -46,7 +46,7 @@ class MarkdownParser(Parser):
         self.write(path,dest,html)
         sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n",format(path.name,content)   )
 
-class RestructuredTextParser(Parser):
+class ReStructuredTextParser(Parser):
     extensions=[".rst"]
     def parse(self,path,source,dest):
         content = Content.load(self.read(path))
